@@ -144,11 +144,11 @@ class self_attention():
     def main(self):
         in_put = list()
         # n = 5 m = 1 l = 1
-        in_put = [[3,2,4,5,1],[1,3,4,3,2]]
+        in_put = [[3,2,4,5,1],[7,6,8,3,2]]
 
-        wq = [[1,6]]
-        wk = [[2,0]]
-        wv = [[3,4]]
+        wq = [[1,2],[3,2],[81,5]]
+        wk = [[11,2],[3,2],[8,5]]
+        wv = [[1,2],[31,2],[8,5]]
 
         q = self.matrix_mp(wq,in_put)
         k = self.matrix_mp(wk,in_put)
@@ -157,9 +157,6 @@ class self_attention():
         # v = [v]
         # print(k,q,v)
 
-        self.print_matrix(q)
-        self.print_matrix(k)
-        self.print_matrix(v)
         # k = self.vector_to_matrix(k)
         k = self.matrix_trans(k)
         # q = self.vector_to_matrix(q)

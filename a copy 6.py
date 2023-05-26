@@ -70,7 +70,7 @@ class self_attention():
             out+=ae*be
         return out
 
-    def vector_mp_num(self,a,lb):
+    def mp(self,a,lb):
         c = list()
         for i,ele in enumerate(lb):
             d = a*ele
@@ -144,25 +144,22 @@ class self_attention():
     def main(self):
         in_put = list()
         # n = 5 m = 1 l = 1
-        in_put = [[3,2,4,5,1],[1,3,4,3,2]]
+        in_put = [3,2,4,5,1]
 
-        wq = [[1,6]]
-        wk = [[2,0]]
-        wv = [[3,4]]
+        wq = 1
+        wk = 2
+        wv = 3
 
-        q = self.matrix_mp(wq,in_put)
-        k = self.matrix_mp(wk,in_put)
-        v = self.matrix_mp(wv,in_put)
+        q = self.mp(wq,in_put)
+        k = self.mp(wk,in_put)
+        v = self.mp(wv,in_put)
 
-        # v = [v]
-        # print(k,q,v)
+        v = [v]
+        print(k,q,v)
 
-        self.print_matrix(q)
-        self.print_matrix(k)
-        self.print_matrix(v)
-        # k = self.vector_to_matrix(k)
+        k = self.vector_to_matrix(k)
         k = self.matrix_trans(k)
-        # q = self.vector_to_matrix(q)
+        q = self.vector_to_matrix(q)
         a = self.matrix_mp(k,q)
 
 
@@ -184,10 +181,18 @@ class self_attention():
             sa0 = self.soft_max(a0)
             at.append(sa0)
 
+        # at = [[1,2,55],[3,4,66]]
+        # self.print_matrix(at)
+        # print(at)
         at = self.matrix_trans(at)
+        # print(at)
         self.print_matrix(at)
 
 
+        # at = [[1,2]]
+        # v = [[3],[4]]
+        # cc = self.matrix_trans(at)
+        # self.print_matrix(v)
 
         b = self.matrix_mp(v,at)
         self.print_matrix(b)

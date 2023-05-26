@@ -1,15 +1,3 @@
-# 向量 vector 就是 [] 无所谓 行还是列，无所谓是竖的还是横的
-# 向量有内积 软大 变成矩阵 乘标量
-# 向量转成矩阵就变成了行向量
-
-# 矩阵 
-
-# 行向量是 1行 n列的矩阵 
-# 列向量是 m行 1列的矩阵
-
-# 矩阵的方法
-# 矩阵相乘，矩阵提取列向量（输出为向量vector）,转置，打印，矩阵乘标题
-
 
 
 
@@ -26,7 +14,7 @@ class self_attention():
         # ma  l行 m列
         # mb m行 n列
         l = len(ma)
-        # m = len(ma[0])
+        m = len(ma[0])
         n = len(mb[0])
 
         out = list()
@@ -36,33 +24,34 @@ class self_attention():
         
         for i in range(l):
             xa = ma[i]
-            ro = list()
-            for j in range(n):
+            ro = out[i]
+            for j in range(m):
                 xb = self.matrix_get_column(mb,j)
                 x = self.dot_product(xa,xb)
                 ro.append(x)
-            out.append(ro)
 
         return out
 
-    def matrix_mp_num(self,num_a,mb):
-        # 矩阵乘标量
-        # m = len(mb)
-        out = list()
-        for i,row in enumerate(mb):
-            ro = list()
-            for j,ele in enumerate(row):
-                d = num_a*ele
-                ro.append(d)
-            out.append(ro)
-        return out
-    
 
 
+    def mp3(self,la,lb):
+        # 向量相乘得矩阵
 
+        matrix = list()
+
+        n = len(la)
+        m = len(lb)
+        # for i,ele in enumerate()
+        for i in range(n):
+            row = list()
+            for j in range(m):
+                a = la[i]*lb[j]
+                row.append(a)
+            matrix.append(row)
+        return matrix
 
     def dot_product(self,la,lb):
-        # 两个向量 内积
+        # 内积
         out = 0
         for i in range(len(la)):
             ae = la[i]
@@ -70,7 +59,7 @@ class self_attention():
             out+=ae*be
         return out
 
-    def vector_mp_num(self,a,lb):
+    def mp(self,a,lb):
         c = list()
         for i,ele in enumerate(lb):
             d = a*ele
@@ -136,7 +125,7 @@ class self_attention():
         print(']')
         return
 
-    def vector_to_matrix(self,list_a):
+    def list_to_matrix(self,list_a):
         out = list()
         out.append(list_a)
         return out
@@ -144,30 +133,20 @@ class self_attention():
     def main(self):
         in_put = list()
         # n = 5 m = 1 l = 1
-        in_put = [[3,2,4,5,1],[1,3,4,3,2]]
+        in_put = [3,2,4,5,1]
 
-        wq = [[1,6]]
-        wk = [[2,0]]
-        wv = [[3,4]]
+        wq = 1
+        wk = 2
+        wv = 3
 
-        q = self.matrix_mp(wq,in_put)
-        k = self.matrix_mp(wk,in_put)
-        v = self.matrix_mp(wv,in_put)
+        q = self.mp(wq,in_put)
+        k = self.mp(wk,in_put)
+        v = self.mp(wv,in_put)
 
-        # v = [v]
-        # print(k,q,v)
+        v = [v]
+        print(k,q,v)
 
-        self.print_matrix(q)
-        self.print_matrix(k)
-        self.print_matrix(v)
-        # k = self.vector_to_matrix(k)
-        k = self.matrix_trans(k)
-        # q = self.vector_to_matrix(q)
-        a = self.matrix_mp(k,q)
-
-
-        # a = self.mp3(k,q)
-        self.print_matrix(a)
+        a = self.mp3(k,q)
         # print(a)
 
         # print(a0)
@@ -184,13 +163,12 @@ class self_attention():
             sa0 = self.soft_max(a0)
             at.append(sa0)
 
-        at = self.matrix_trans(at)
+        # at = [[1,2,55],[3,4,66]]
         self.print_matrix(at)
-
-
-
-        b = self.matrix_mp(v,at)
-        self.print_matrix(b)
+        # print(at)
+        at = self.matrix_trans(at)
+        # print(at)
+        self.print_matrix(at)
 
 
         return
