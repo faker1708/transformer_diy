@@ -81,8 +81,8 @@ class self_attention():
     def soft_max(self,vector):
         out = list()
         
-        up = 10
-        bottom = -10
+        up = 2**3
+        bottom = -up
 
         base = 2    #计算幂用的底
         
@@ -146,9 +146,9 @@ class self_attention():
         # n = 5 m = 1 l = 1
         in_put = [[3,2,4,5,1],[1,3,4,3,2]]
 
-        wq = [[1,6]]
-        wk = [[2,0]]
-        wv = [[3,4]]
+        wq = [[0.8,2.1]]
+        wk = [[1.1,1]]
+        wv = [[20,1]]
 
         q = self.matrix_mp(wq,in_put)
         k = self.matrix_mp(wk,in_put)
