@@ -52,6 +52,10 @@ class b_class():
         a = kt @ q
 
         print('\na',a)
+        a = a/3**0.5
+
+        
+        print('\na',a)
         ap = F.softmax(a,dim=0)
         # print(k)
         print('ap',ap)
